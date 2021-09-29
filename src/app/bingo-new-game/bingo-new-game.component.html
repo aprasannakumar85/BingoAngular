@@ -1,0 +1,83 @@
+
+<div class='row'>
+  <table class="table">
+    <tr>
+      <td style="font-size: large; font-weight: bolder;">Your name is:</td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field appearance="legacy">
+          <input autocomplete="off" matInput placeholder="please enter your name" [(ngModel)]="userName">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </td>
+      <td style="font-size: medium; font-weight: bolder;">
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-checkbox class="example-margin" [checked]="isCacheDataChecked" (change)="CacheData($event.checked)">Store your BINGO card in my memory</mat-checkbox> for
+        <mat-form-field [style.width.px]=50 appearance="legacy">
+          <input autocomplete="off" type="number" style="text-align: center" matInput [(ngModel)]="cacheDataDays"
+            [readonly]="!isCacheDataChecked">
+        </mat-form-field>days
+      </td>
+    </tr>
+  </table>
+</div>
+<div class='panel-body'>
+  <div class='row' style="align-items: center;">
+    <button mat-raised-button matTooltip="creates new game, reset the stored cards" matTooltipClass="tooltip"
+      (click)="CreateNewBoard()">
+      <mat-icon>gamepad</mat-icon>&nbsp;Create New Game
+    </button>
+  </div>
+  <div class='row'>
+    &nbsp;
+  </div>
+  <div class='row'>
+    <span style="color: red; font-weight: bolder; font-size: medium;">
+      &nbsp; {{ invalidName}}
+    </span>
+  </div>
+  <div class='table-responsive'>
+    <table class="table table-float">
+      <tr>
+        <td>
+          <table class="table table-Bingo">
+            <tr>
+              <th>
+                <button class="btn btn-primary button-th">B</button>
+              </th>
+              <th>
+                <button class="btn btn-primary button-th">I</button>
+              </th>
+              <th>
+                <button class="btn btn-primary button-th">N</button>
+              </th>
+              <th>
+                <button class="btn btn-primary button-th">G</button>
+              </th>
+              <th>
+                <button class="btn btn-primary button-th">O</button>
+              </th>
+            </tr>
+            <tr *ngFor="let row of bingoNewCards">
+              <td *ngFor="let word of row">
+                <button class="btn btn-primary button-td" [ngClass]="{'button-clicked' : userFoundCards.includes(word)}"
+                  [id]="word" (click)="FoundWord(word)">{{ word | trimFirst}}</button>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class='row' style="position:absolute; left:650px; top:670px;">
+    <button mat-raised-button matTooltip="submit your selection" matTooltipClass="tooltip" (click)="CheckForBingo()">
+      <mat-icon>fact_check</mat-icon>&nbsp;Check BINGO!
+    </button>&nbsp;&nbsp;
+    <button mat-raised-button matTooltip="resets your selection" matTooltipClass="tooltip" (click)="ResetSelection()">
+      <mat-icon>reset_tv</mat-icon>&nbsp;Reset Selection
+    </button>
+  </div>
+</div>
