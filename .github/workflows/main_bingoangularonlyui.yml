@@ -25,7 +25,6 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -51,6 +50,5 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'bingoangularonlyui'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FCCB1208B2234E66B0F106932B9E705E }}
-          package: .
+          package: ./dist/bingo
